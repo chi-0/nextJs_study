@@ -1,50 +1,42 @@
 "use client";
 
 import style from "./signup.module.css";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import BackButton from "./BackButton";
+import onSubmit from "@/app/(beforeLogin)/_lib/signup";
+import { useFormState, useFormStatus } from "react-dom";
+
+function showMessage(message: string | undefined) {
+  if (message === "no_id") {
+    return "아이디를 입력하세요";
+  }
+  if (message === "no_name") {
+    return "닉네임을 입력하세요";
+  }
+  if (message === "no_password") {
+    return "비밀번호를 입력하세요";
+  }
+  if (message === "no_image") {
+    return "이미지를 업로드하세요";
+  }
+  if (message === "user_exists") {
+    return "이미 사용 중인 아이디입니다";
+  }
+  return "";
+}
 
 export default function SignupModal() {
-  const [id, setId] = useState();
-  const [password, setPassword] = useState();
-  const [nickname, setNickname] = useState();
-  const [image, setImage] = useState();
-  const [imageFile, setImageFile] = useState<File>();
-
-  const router = useRouter();
-
-  const onClickClose = () => {
-    router.back();
-  };
-
-  const onChangeId = () => {};
-
-  const onChangeNickname = () => {};
-
-  const onChangePassword = () => {};
-
-  const onChangeImageFile = () => {};
+  const [state, formAction] = useFormState(onSubmit, { message: "" });
+  const { pending } = useFormStatus();
 
   return (
     <>
       <div className={style.modalBackground}>
         <div className={style.modal}>
           <div className={style.modalHeader}>
-            <button className={style.closeButton} onClick={onClickClose}>
-              <svg
-                width={24}
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                className="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-z80fyv r-19wmn03"
-              >
-                <g>
-                  <path d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z"></path>
-                </g>
-              </svg>
-            </button>
+            <BackButton />
             <div>계정을 생성하세요.</div>
           </div>
-          <form>
+          <form action={formAction}>
             <div className={style.modalBody}>
               <div className={style.inputDiv}>
                 <label className={style.inputLabel} htmlFor="id">
@@ -52,11 +44,11 @@ export default function SignupModal() {
                 </label>
                 <input
                   id="id"
+                  name="id"
                   className={style.input}
                   type="text"
                   placeholder=""
-                  value={id}
-                  onChange={onChangeId}
+                  required
                 />
               </div>
               <div className={style.inputDiv}>
@@ -65,11 +57,11 @@ export default function SignupModal() {
                 </label>
                 <input
                   id="name"
+                  name="name"
                   className={style.input}
                   type="text"
                   placeholder=""
-                  value={nickname}
-                  onChange={onChangeNickname}
+                  required
                 />
               </div>
               <div className={style.inputDiv}>
@@ -78,11 +70,11 @@ export default function SignupModal() {
                 </label>
                 <input
                   id="password"
+                  name="password"
                   className={style.input}
                   type="password"
                   placeholder=""
-                  value={password}
-                  onChange={onChangePassword}
+                  required
                 />
               </div>
               <div className={style.inputDiv}>
@@ -91,18 +83,23 @@ export default function SignupModal() {
                 </label>
                 <input
                   id="image"
+                  name="image"
                   className={style.input}
                   type="file"
                   accept="image/*"
-                  value={nickname}
-                  onChange={onChangeImageFile}
+                  required
                 />
               </div>
             </div>
             <div className={style.modalFooter}>
-              <button className={style.actionButton} disabled>
+              <button
+                type="submit"
+                className={style.actionButton}
+                disabled={pending}
+              >
                 가입하기
               </button>
+              <div className={style.error}>{showMessage(state?.message)}</div>
             </div>
           </form>
         </div>
