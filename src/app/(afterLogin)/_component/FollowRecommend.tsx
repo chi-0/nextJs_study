@@ -1,15 +1,12 @@
 "use client";
 
+import { User } from "@/model/User";
 import style from "./followRecommend.module.css";
 
-export default function FollowRecommend() {
-  const onFollow = () => {};
+type Props = { user: User };
 
-  const user = {
-    id: "elonmusk",
-    nickName: "Elon Musk",
-    image: "/yRsRRjGO.jpg",
-  };
+export default function FollowRecommend({ user }: Props) {
+  const onFollow = () => {};
 
   return (
     <div className={style.container}>
@@ -19,7 +16,7 @@ export default function FollowRecommend() {
         </div>
       </div>
       <div className={style.userInfo}>
-        <div className={style.title}>{user.nickName}</div>
+        <div className={style.title}>{user.nickname}</div>
         <div className={style.count}>@{user.id}</div>
       </div>
       <div className={style.followButtonSection}>

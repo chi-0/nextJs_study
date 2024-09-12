@@ -2,14 +2,18 @@
 
 import { useRef, useState } from "react";
 import style from "./modal.module.css";
+import { useRouter } from "next/navigation";
 
 export default function TweetModal() {
   const [content, setContent] = useState();
   const imageRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const onSubmit = () => {};
 
-  const onClickClose = () => {};
+  const onClickClose = () => {
+    router.back();
+  };
 
   const onClickButton = () => {};
 

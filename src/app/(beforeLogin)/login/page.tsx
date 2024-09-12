@@ -17,3 +17,17 @@ export default function Login() {
 
   return <Main />;
 }
+
+// export const Login = () => {
+//   const router = useRouter();
+//   const { data: session } = useSession();
+
+//   if (session?.user) {
+//     router.replace("/home");
+//     return null;
+//   }
+
+//   router.replace("/i/flow/login");
+
+//   return <Main />;
+// };

@@ -5,13 +5,12 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import ActionButtons from "./ActionButtons";
 import PostArticle from "./PostArticle";
-import { faker } from "@faker-js/faker";
 import PostImages from "./PostImages";
-import { Post } from "@/model/Post";
+import { Post as IPost } from "@/model/Post";
 
 type Props = {
   noImage?: boolean;
-  post: Post;
+  post: IPost;
 };
 
 export default function Post({ noImage, post }: Props) {

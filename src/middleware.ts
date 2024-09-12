@@ -10,4 +10,4 @@ export async function middleware() {
 
 export const config = {
   matcher: ["/compose/tweet", "/home", "/explore", "/message", "/search"],
-};
+}; //로그인을 해야지만 접근할 수 있는 페이지
